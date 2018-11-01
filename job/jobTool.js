@@ -81,6 +81,7 @@ jobTool.init = async()=>{
 
     let jobSpace = 1000 ;
     await jobTool.main();
+    // console.log(`${new Date().toLocaleString()}.....`);
     setTimeout(jobTool.init,jobSpace);
 
 };

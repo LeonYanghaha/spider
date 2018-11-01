@@ -1,36 +1,43 @@
-var app = require('koa')()
-  , logger = require('koa-logger')
-  , json = require('koa-json')
-  , views = require('koa-views')
-  , onerror = require('koa-onerror');
+const Koa = require('koa');
+const app = new Koa();
+const views = require('koa-views');
+const json = require('koa-json');
+const onerror = require('koa-onerror');
+const bodyparser = require('koa-bodyparser');
+const logger = require('koa-logger');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 
 // error handler
 onerror(app);
 
+
+
+// 开启子进程，抓取新闻的
 require("./job/processManger");
 
-// global middlewares
-app.use(views('views', {
-  root: __dirname + '/views',
-  default: 'ejs'
+// middlewares
+app.use(bodyparser({
+  enableTypes:['json', 'form', 'text']
 }));
-app.use(require('koa-bodyparser')());
 app.use(json());
 app.use(logger());
-
-app.use(function *(next){
-  var start = new Date;
-  yield next;
-  var ms = new Date - start;
-  console.log('%s %s - %s', this.method, this.url, ms);
-});
-
 app.use(require('koa-static')(__dirname + '/public'));
 
-// routes definition
+app.use(views(__dirname + '/views', {
+  extension: 'ejs'
+}));
+
+// logger
+app.use(async (ctx, next) => {
+  const start = new Date();
+  await next();
+  const ms = new Date() - start;
+  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+});
+
+// routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 
