@@ -8,7 +8,7 @@ const conf = {
         topic:"spider",
         reader:{
             host:"127.0.0.1",
-            port:4150,
+            port:4161,
         },
         writer:{
             host:"127.0.0.1",

@@ -14,7 +14,7 @@ onerror(app);
 
 
 
-// 开启子进程，抓取新闻的
+// 开启子进程
 require("./job/processManger");
 
 // middlewares
