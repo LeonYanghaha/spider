@@ -14,6 +14,13 @@ const conf = {
             host:"127.0.0.1",
             port:4150,
         }
+    },
+    es:{
+        index:"spider",
+        type:"news",
+        host:"127.0.0.1",
+        port:"9200"
+
     }
 };
 

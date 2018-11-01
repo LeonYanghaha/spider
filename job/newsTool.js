@@ -25,7 +25,7 @@ newsTool.newsPushNSQ = (newsStr)=>{
     let topic = conf.nsq.topic ;
     let isPush = nsqTool.pushMsg(topic,newsStr);
     if(isPush){
-        console.log(`保存成功...${newsStr}`);
+        console.log(`保存成功...`);
     }else{
         console.log(`保存失败..`);
         // TODO  这里应该有一个保存失败的预警机制
