@@ -1,4 +1,5 @@
 const router = require('koa-router')();
+const esUtil  = require("../middlewares/esUtil");
 
 router.get('/', async (ctx, next) => {
   await ctx.render('index', {
@@ -9,9 +10,8 @@ router.get('/', async (ctx, next) => {
 router.get('/search/:kw', async (ctx, next) => {
 
   let kw = ctx.params.kw ;
+  let res =await esUtil.search(kw) ;
+  ctx.body = res;
 
-
-
-  ctx.body = kw;
 });
 module.exports = router;

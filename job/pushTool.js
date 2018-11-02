@@ -38,25 +38,13 @@ pushTool.initES =async ()=>{
         host: esAddress,
         log: 'trace'
     });
-
-    // create index
-
-
 };
 
 pushTool.msgToES = async(msgStr)=>{
-    //
-    // const { count } = await esClient.count({
-    //     index: 'index'
-    // });
-    // console.error(count);
-    // return true ;
 
     let newInfo = JSON.parse(msgStr);
     let index = conf.es.index ;
     let type = conf.es.type ;
-
-
 
     const response = await esClient.index({
         index: index,
@@ -71,8 +59,6 @@ pushTool.msgToES = async(msgStr)=>{
 
     console.log(response);
     return true ;
-
-
 };
 
 
